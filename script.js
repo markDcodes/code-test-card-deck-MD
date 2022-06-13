@@ -201,7 +201,7 @@ for(var x of searchParams.keys()) {
 	}
 
 	//Exit loop if limit exists. 
-	if(x == 'limit') {break;} //Bug - Limit param will only work if its the last param in the set
+	if(x == 'limit') {break;} 
 	//Filter deck each pass
 	deck.filter(sKey, searchParams.get(x));
 }
