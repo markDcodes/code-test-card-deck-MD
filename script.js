@@ -179,3 +179,36 @@ const deck = new CardDeck(".deck", ".hand");
 
 // Take a look at the deck object and its methods.
 console.log(deck);
+
+//Grab URL query
+const queryString = window.location.search;
+console.log(queryString);
+
+const searchParams = new URLSearchParams(queryString); 
+
+//Iterate through URL search parameters & assign to known card props.
+for(var x of searchParams.keys()) {
+	switch(x) {
+		case 'cards':
+			var sKey = 'id';
+			break;
+		case 'suits':
+			var sKey = 'suit';
+			break;
+		case 'ranks':
+			var sKey = 'rank';
+			break;
+	}
+
+	//Exit loop if limit exists. 
+	if(x == 'limit') {break;} //Bug - Limit param will only work if its the last param in the set
+	//Filter deck each pass
+	deck.filter(sKey, searchParams.get(x));
+}
+
+//Check for card 'limit' parameter
+if(searchParams.get('limit') >= 1) { deck.limit(searchParams.get('limit')); }
+
+deck.sort();
+
+deck.drawFiltered();
